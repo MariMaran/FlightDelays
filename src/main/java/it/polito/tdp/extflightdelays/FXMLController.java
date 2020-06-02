@@ -1,9 +1,14 @@
 package it.polito.tdp.extflightdelays;
 
 import java.net.URL;
+import java.util.Collection;
+import java.util.List;
 import java.util.ResourceBundle;
+import java.util.Set;
 
+import it.polito.tdp.extflightdelays.model.Airport;
 import it.polito.tdp.extflightdelays.model.Model;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -28,7 +33,7 @@ public class FXMLController {
     private TextField compagnieMinimo; // Value injected by FXMLLoader
 
     @FXML // fx:id="cmbBoxAeroportoPartenza"
-    private ComboBox<?> cmbBoxAeroportoPartenza; // Value injected by FXMLLoader
+    private ComboBox<Airport> cmbBoxAeroportoPartenza; // Value injected by FXMLLoader
 
     @FXML // fx:id="cmbBoxAeroportoDestinazione"
     private ComboBox<?> cmbBoxAeroportoDestinazione; // Value injected by FXMLLoader
@@ -41,7 +46,20 @@ public class FXMLController {
 
     @FXML
     void doAnalizzaAeroporti(ActionEvent event) {
-
+    	txtResult.clear();
+    	model.creaGrafo();
+    	String temp="";
+    	model.ottieniAereoporti(Integer.parseInt(compagnieMinimo.getText()));
+    	Collection<Airport> a=model.getAereoporti();
+        for(Airport ai:a) {
+        	temp=temp+ai.getAirportName()+"\n";
+        	}
+        txtResult.appendText(temp);
+        
+        cmbBoxAeroportoPartenza.getItems().addAll(this.model.getAereoporti());
+        
+        
+        
     }
 
     @FXML
@@ -61,6 +79,6 @@ public class FXMLController {
     }
     
     public void setModel(Model model) {
-    	this.model = model;
+    	this.model = model ;
     }
 }

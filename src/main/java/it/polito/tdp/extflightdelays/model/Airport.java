@@ -107,16 +107,10 @@ public class Airport {
 
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
+		Airport a=(Airport)obj;
+		if(this.id==a.getId())
 			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Airport other = (Airport) obj;
-		if (id != other.id)
-			return false;
-		return true;
+		return false;
 	}
 
 	@Override
